@@ -1,3 +1,4 @@
+using Assets.Scripts.BattleSystem;
 using Assets.Scripts.InventorySystem.Items;
 using Microsoft.Unity.VisualStudio.Editor;
 using NUnit.Framework.Internal.Commands;
@@ -13,14 +14,19 @@ public class Cat : MonoBehaviour
     [SerializeField] public bool isMale;
     [SerializeField] public float health;
     [SerializeField] public float damageMultiplier;
+    [SerializeField] public Transform battleMap;
+    //[SerializeField] public Transform spawnPoint;
+    [SerializeField] public GameObject kittenFighter;
 
     [Header("Items")]
     [SerializeField] public Hat equippedHat;
     [SerializeField] public Weapon equippedWeapon;
 
+    
+
     private void Awake()
     {
-
+        battleMap = GameObject.Find("SpawnPointKittens").GetComponent<Transform>();
     }
 
     // Инициализация характеристик
@@ -39,12 +45,18 @@ public class Cat : MonoBehaviour
     //Бонусы от оружии, короче
     public float GetTotalHealth()
     {
+        if(equippedHat == null)
+            return health;
+        
         float bonus = (equippedHat != null) ? equippedHat.healthBonus : 0;
         return health + bonus;
     }
 
     public float GetTotalDamage()
     {
+        if (equippedWeapon == null)
+            return health;
+
         float bonus = (equippedWeapon != null) ? equippedWeapon.damageBonus : 0;
         return damageMultiplier + bonus;
     }
@@ -65,8 +77,22 @@ public class Cat : MonoBehaviour
 
     private void SendToBattle()
     {
-        Debug.Log("Ушел на битву!");
+        GameObject spawnPoint = GameObject.Find("SpawnPointKittens");
+
+        if (spawnPoint != null)
+        {
+            GameObject fighter = Instantiate(kittenFighter, spawnPoint.transform.position, Quaternion.identity, battleMap);
+
+            KittenFighter unit = fighter.GetComponent<KittenFighter>();
+            unit.health = GetTotalHealth();
+            unit.damage = GetTotalDamage();
+            unit.enemyTag = "Ant";
+
+            Destroy(fighter.GetComponent<CanvasGroup>());
+        }
+
     }
+
 
     private void OpenCostumization()
     {

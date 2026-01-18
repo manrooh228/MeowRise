@@ -10,7 +10,7 @@ namespace Assets.Scripts
         [SerializeField] private Cat father; // Перетащите объект PapaPocket сюда
         [SerializeField] private Cat mother; // Перетащите объект MamaPocket сюда
         [SerializeField] private GameObject catPrefab; // Префаб котенка (квадратик)
-        [SerializeField] private Transform spawnPoint; // Место появления
+        
         [SerializeField] private int kittenCount = 0;
         [SerializeField] private List<Cat> kittens;
         public Transform[] kittenPockets;
@@ -56,7 +56,7 @@ namespace Assets.Scripts
 
 
             //Логика наследования 70/30
-            //70/30 хп от папы
+            //70/30 урон от папы
             float kittenDamage = (father.damageMultiplier * 0.7f) + (mother.damageMultiplier * 0.3f);
 
             //70/30 хп от мамы
