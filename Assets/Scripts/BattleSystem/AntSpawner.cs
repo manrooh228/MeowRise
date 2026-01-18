@@ -9,7 +9,7 @@ namespace Assets.Scripts.BattleSystem
         public Transform spawnPointAnt;
         public Transform battleMap;
         public int currentLevel = 1;
-        public float spawnInterval = 10f;
+        public float spawnInterval; //время создания
 
         void Start()
         {

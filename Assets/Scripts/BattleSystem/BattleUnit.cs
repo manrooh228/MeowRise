@@ -15,7 +15,7 @@ namespace Assets.Scripts.BattleSystem
         protected bool isFighting = false;
         protected BattleUnit targetEnemy;
 
-        void Update()
+        protected virtual void Update()
         {
             if (!isFighting)
             {
@@ -51,7 +51,7 @@ namespace Assets.Scripts.BattleSystem
             isFighting = false;
         }
 
-        public void TakeDamage(float amount)
+        protected virtual void TakeDamage(float amount)
         {
             health -= amount;
             if (health <= 0) Die();

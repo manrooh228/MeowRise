@@ -32,7 +32,8 @@ public class Cat : MonoBehaviour
     private void Awake()
     {
         battleMap = GameObject.Find("SpawnPointKittens").GetComponent<Transform>();
-        inBattleIdenticator.SetActive(false);
+        if(!isParent)
+            inBattleIdenticator.SetActive(false);
     }
 
     // Инициализация характеристик
@@ -81,6 +82,22 @@ public class Cat : MonoBehaviour
         }
     }
 
+    public void ReturnFromBattle(float remainingHealth)
+    {
+        this.health = remainingHealth;
+
+        k1Button.SetActive(true);
+        k2Button.SetActive(true);
+        inBattleIdenticator.SetActive(false);
+    }
+
+    public void DieFromBattle()
+    {
+        Debug.Log("Котенок погиб в бою. Удаляем карман.");
+        // Уничтожаем объект кармана в интерфейсе
+        Destroy(gameObject);
+    }
+
     private void SendToBattle()
     {
         GameObject spawnPoint = GameObject.Find("SpawnPointKittens");
@@ -91,6 +108,7 @@ public class Cat : MonoBehaviour
             GameObject fighter = Instantiate(kittenFighter, spawnPoint.transform.position, Quaternion.identity, battleMap);
 
             KittenFighter unit = fighter.GetComponent<KittenFighter>();
+            unit.sourcePocket = this;
             unit.health = GetTotalHealth();
             unit.damage = GetTotalDamage();
             unit.enemyTag = "Ant";
