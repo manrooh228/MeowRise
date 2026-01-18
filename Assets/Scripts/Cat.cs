@@ -1,3 +1,4 @@
+using Assets.Scripts.InventorySystem.Items;
 using Microsoft.Unity.VisualStudio.Editor;
 using NUnit.Framework.Internal.Commands;
 using System;
@@ -6,10 +7,16 @@ using UnityEngine;
 
 public class Cat : MonoBehaviour
 {
-    public bool isParent;
-    public bool isMale;
-    public float health;
-    public float damageMultiplier;
+    [Header("Stats")]
+    [SerializeField] public string catName = "Новый кот";
+    [SerializeField] public bool isParent;
+    [SerializeField] public bool isMale;
+    [SerializeField] public float health;
+    [SerializeField] public float damageMultiplier;
+
+    [Header("Items")]
+    [SerializeField] public Hat equippedHat;
+    [SerializeField] public Weapon equippedWeapon;
 
     private void Awake()
     {
@@ -23,11 +30,27 @@ public class Cat : MonoBehaviour
         this.damageMultiplier = dmg;
         this.isParent = isParent;
     }
-
-    public void K1buttonOnClick()
+    public void ChangeName(string newName)
     {
-        OpenCostumization();
+        catName = newName;
+        gameObject.name = newName;
     }
+    
+    //Бонусы от оружии, короче
+    public float GetTotalHealth()
+    {
+        float bonus = (equippedHat != null) ? equippedHat.healthBonus : 0;
+        return health + bonus;
+    }
+
+    public float GetTotalDamage()
+    {
+        float bonus = (equippedWeapon != null) ? equippedWeapon.damageBonus : 0;
+        return damageMultiplier + bonus;
+    }
+
+    public void K1buttonOnClick() => OpenCostumization(); 
+
     public void K2buttonOnClick()
     {
         if (!isParent)
@@ -48,13 +71,7 @@ public class Cat : MonoBehaviour
     private void OpenCostumization()
     {
         if (CustomizationMenu.Instance != null)
-        {
             CustomizationMenu.Instance.Open(this);
-        }
-        else
-        {
-            Debug.LogError("CustomizationMenu не найден на сцене!");
-        }
     }
 
     private void ChangeToParent()

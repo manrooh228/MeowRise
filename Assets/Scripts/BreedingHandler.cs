@@ -40,7 +40,7 @@ namespace Assets.Scripts
         {
             if (currentPocketIndex >= kittenPockets.Length)
             {
-                Debug.Log("Все карманы заняты!");
+                //Debug.Log("Все карманы заняты!");
                 return;
             }
 
@@ -68,10 +68,10 @@ namespace Assets.Scripts
 
             //Убрать .0
             kittenHealth = Mathf.Floor(kittenHealth);
-
+            
             kitten.Init(kittenHealth, kittenDamage, false, GenderHandler());
 
-            Debug.Log($"Родился котенок! HP: {kittenHealth:F1}, DMG: {kittenDamage:F1}");
+            Debug.Log($"Родился котенок! HP: {kittenHealth:F1}, DMG: {kittenDamage:F2}, IsMale: {GenderHandler()}");
 
             kittens.Add(kitten);
             kittenCount++;
