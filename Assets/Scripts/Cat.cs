@@ -47,7 +47,14 @@ public class Cat : MonoBehaviour
 
     private void OpenCostumization()
     {
-        Debug.Log("K1 Button Pressed");
+        if (CustomizationMenu.Instance != null)
+        {
+            CustomizationMenu.Instance.Open(this);
+        }
+        else
+        {
+            Debug.LogError("CustomizationMenu не найден на сцене!");
+        }
     }
 
     private void ChangeToParent()
