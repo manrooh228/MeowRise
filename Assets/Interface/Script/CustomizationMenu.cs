@@ -71,11 +71,15 @@ public class CustomizationMenu : MonoBehaviour
         else weaponSlot.sprite = default;
     }
 
-    public void OnNameChanged()
+    public void OnSaveButton()
     {
         if (selectedCat != null)
         {
             selectedCat.ChangeName(nameInputField.text);
+            //selectedCat.equippedHat = null;
+            //selectedCat.equippedWeapon = null;
+
+            Close();
         }
     }
 
