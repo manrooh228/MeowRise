@@ -27,7 +27,7 @@ namespace Assets.Scripts.BattleSystem
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime * (enemyTag == "Ant" ? 1 : -1));
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        protected void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(enemyTag))
             {

@@ -8,7 +8,7 @@ namespace Assets.Scripts.BattleSystem
         public void Init(int level)
         {
             health = 50 + (level * 20);
-            damage = 5 + (level * 5);
+            damage = 50 + (level * 5);
             enemyTag = "Kitten";
             moveSpeed = 80f;
         }

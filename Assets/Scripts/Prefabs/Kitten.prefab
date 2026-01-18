@@ -565,7 +565,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9173323650755057734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.2844}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -575,7 +575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 727.0918, y: -143.8979}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 195, y: 195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1587721086793510533
@@ -595,7 +595,7 @@ MonoBehaviour:
   isMale: 0
   health: 0
   damageMultiplier: 0
-  spawnPoint: {fileID: 0}
+  battleMap: {fileID: 0}
   kittenFighter: {fileID: 1036194308997210771, guid: 7f0da325954f64e4e96a05c6685884e5, type: 3}
   equippedHat: {fileID: 0}
   equippedWeapon: {fileID: 0}

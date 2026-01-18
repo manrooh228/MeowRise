@@ -71,7 +71,7 @@ namespace Assets.Scripts
             
             kitten.Init(kittenHealth, kittenDamage, false, GenderHandler());
 
-            Debug.Log($"Родился котенок! HP: {kittenHealth:F1}, DMG: {kittenDamage:F2}, IsMale: {GenderHandler()}");
+            //Debug.Log($"Родился котенок! HP: {kittenHealth:F1}, DMG: {kittenDamage:F2}, IsMale: {GenderHandler()}");
 
             kittens.Add(kitten);
             kittenCount++;
