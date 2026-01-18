@@ -1,10 +1,10 @@
 using Assets.Scripts.BattleSystem;
 using Assets.Scripts.InventorySystem.Items;
-using Microsoft.Unity.VisualStudio.Editor;
 using NUnit.Framework.Internal.Commands;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cat : MonoBehaviour
 {
@@ -18,6 +18,11 @@ public class Cat : MonoBehaviour
     //[SerializeField] public Transform spawnPoint;
     [SerializeField] public GameObject kittenFighter;
 
+    [Header("Identicators")]
+    [SerializeField] public GameObject inBattleIdenticator;
+    [SerializeField] public GameObject k1Button;
+    [SerializeField] public GameObject k2Button;
+
     [Header("Items")]
     [SerializeField] public Hat equippedHat;
     [SerializeField] public Weapon equippedWeapon;
@@ -27,6 +32,7 @@ public class Cat : MonoBehaviour
     private void Awake()
     {
         battleMap = GameObject.Find("SpawnPointKittens").GetComponent<Transform>();
+        inBattleIdenticator.SetActive(false);
     }
 
     // Инициализация характеристик
@@ -78,6 +84,7 @@ public class Cat : MonoBehaviour
     private void SendToBattle()
     {
         GameObject spawnPoint = GameObject.Find("SpawnPointKittens");
+        
 
         if (spawnPoint != null)
         {
@@ -87,6 +94,10 @@ public class Cat : MonoBehaviour
             unit.health = GetTotalHealth();
             unit.damage = GetTotalDamage();
             unit.enemyTag = "Ant";
+
+            k1Button.SetActive(false);
+            k2Button.SetActive(false);
+            inBattleIdenticator.SetActive(true);
 
             Destroy(fighter.GetComponent<CanvasGroup>());
         }

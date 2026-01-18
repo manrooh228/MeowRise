@@ -10,6 +10,7 @@ namespace Assets.Scripts.BattleSystem
         public float attackSpeed = 1.0f;
         public float moveSpeed = 100f;
         public string enemyTag;
+        
 
         protected bool isFighting = false;
         protected BattleUnit targetEnemy;
