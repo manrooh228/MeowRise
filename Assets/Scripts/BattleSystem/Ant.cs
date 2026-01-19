@@ -28,6 +28,7 @@ namespace Assets.Scripts.BattleSystem
             {
                 targetEnemy = other.GetComponent<BattleUnit>();
                 isFighting = true;
+                anim.SetTrigger("attack");
                 StartCoroutine(AttackCycle());
             }
             // Приоритет 2: Ферма (если котенок не встал на пути)
@@ -37,6 +38,7 @@ namespace Assets.Scripts.BattleSystem
                 if (farm != null)
                 {
                     isFighting = true;
+                    anim.SetTrigger("attack");
                     StartCoroutine(AttackFarmCycle(farm));
                 }
             }
@@ -46,7 +48,7 @@ namespace Assets.Scripts.BattleSystem
             while (farm != null && farm.health > 0)
             {
                 //turn to cat
-
+                anim.SetTrigger("attack");
                 farm.TakeDamage(damage);
                 yield return new WaitForSeconds(attackSpeed);
             }

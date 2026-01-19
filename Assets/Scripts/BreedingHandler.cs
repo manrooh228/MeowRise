@@ -9,6 +9,10 @@ namespace Assets.Scripts
     {
         [SerializeField] private Cat father; // Перетащите объект PapaPocket сюда
         [SerializeField] private Cat mother; // Перетащите объект MamaPocket сюда
+
+        [SerializeField] private GameObject motherPrefab;
+        [SerializeField] private GameObject fatherPrefab;
+
         [SerializeField] private GameObject catPrefab; 
         // Префаб котенка (квадратик)
         

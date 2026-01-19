@@ -11,7 +11,7 @@ namespace Assets.Scripts.BattleSystem
         public float attackSpeed = 1.0f;
         public float moveSpeed = 100f;
         public string enemyTag;
-
+        public Animator anim;
         
         public HealthBar healthBar;
         protected bool isFighting = false;
@@ -28,6 +28,7 @@ namespace Assets.Scripts.BattleSystem
 
         protected virtual void Move()
         {
+            
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime * (enemyTag == "Ant" ? 1 : -1));
         }
 
@@ -39,19 +40,25 @@ namespace Assets.Scripts.BattleSystem
                 if (targetEnemy != null)
                 {
                     isFighting = true;
+                    anim.SetTrigger("attack");
                     StartCoroutine(AttackCycle());
                 }
             }
         }
 
-        protected IEnumerator AttackCycle()
+        public IEnumerator AttackCycle()
         {
             while (targetEnemy != null && targetEnemy.health > 0)
             {
-                targetEnemy.TakeDamage(damage);
+                ApplyDamage();
                 yield return new WaitForSeconds(attackSpeed);
             }
             isFighting = false;
+        }
+
+        protected virtual void ApplyDamage()
+        {
+            targetEnemy.TakeDamage(damage);
         }
 
         protected virtual void TakeDamage(float amount)

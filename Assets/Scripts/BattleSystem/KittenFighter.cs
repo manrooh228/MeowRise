@@ -15,6 +15,7 @@ namespace Assets.Scripts.BattleSystem
         {
             if (isFighting)
             {
+                anim.SetTrigger("isStaying");
                 StopReturnTimer();
                 return;
             }
@@ -23,13 +24,22 @@ namespace Assets.Scripts.BattleSystem
 
             if (enemies.Length > 0)
             {
-                StopReturnTimer();
-                Move();
+                if (tr.localPosition.x < 250)
+                {
+                    anim.SetTrigger("isMoving");
+                    StopReturnTimer();
+                    Move();
+                }
+                else
+                {
+                    anim.SetTrigger("isStaying");
+                }
             }
             else
             {
                 if (!isWaitingToReturn)
                 {
+                    anim.SetTrigger("isStaying");
                     returnTimerCoroutine = StartCoroutine(ReturnAfterDelay(5f));
                 }
             }
@@ -54,10 +64,16 @@ namespace Assets.Scripts.BattleSystem
         protected override void Move()
         {
             moveSpeed = 100;
-            //Debug.Log(tr.localPosition.x);
             if (tr.localPosition.x < 250)
+            {
                 base.Move();
+            }
+            else
+            {
+                anim.SetTrigger("isStaying");
+            }
         }
+
 
         private void ReturnToPocket()
         {
