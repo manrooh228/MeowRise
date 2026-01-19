@@ -13,13 +13,18 @@ namespace Assets.Scripts
         [SerializeField] private GameObject motherPrefab;
         [SerializeField] private GameObject fatherPrefab;
 
+        public GameObject gameover;
+
         public Transform motherPocket;
         public Transform fatherPocket;
 
         private bool isChoosingParent = false;
         private bool choosingForFather;
 
-        [SerializeField] private GameObject catPrefab; 
+        [SerializeField] private GameObject catPrefab;
+
+
+        [SerializeField] private GameObject education;
 
 
         // Префаб котенка (квадратик)
@@ -31,7 +36,34 @@ namespace Assets.Scripts
 
         private void Awake()
         {
+            if (gameover != null)
+                gameover.SetActive(false);
+            // 1. Ставим игру на паузу ПЕРЕД всем остальным
+            Time.timeScale = 0f;
+
+            // 2. Показываем окно обучения
+            if (education != null)
+            {
+                education.SetActive(true);
+            }
+
+            // 3. Создаем родителей (они будут стоять на паузе)
             SetDefaultParents();
+        }
+
+        // Этот метод должен быть привязан к КНОПКЕ на вашем экране education
+        public void StartButton()
+        {
+            // 1. Скрываем обучение
+            if (education != null)
+            {
+                education.SetActive(false);
+            }
+
+            // 2. Запускаем время
+            Time.timeScale = 1f;
+            
+            Debug.Log("Игра началась!");
         }
 
         private void SetDefaultParents()
@@ -92,7 +124,7 @@ namespace Assets.Scripts
             if (targetPocket == null) return;
 
             GameObject newKittenObj = Instantiate(catPrefab, targetPocket);
-            newKittenObj.transform.localPosition = Vector2.zero;
+            newKittenObj.transform.localPosition = new Vector2(0, 0);
 
             Cat kitten = newKittenObj.GetComponent<Cat>();
 
@@ -160,7 +192,7 @@ namespace Assets.Scripts
         {
             foreach (Transform pocket in pockets)
             {
-                if (pocket.childCount == 0)
+                if (pocket.childCount == 1)
                 {
                     return pocket;
                 }

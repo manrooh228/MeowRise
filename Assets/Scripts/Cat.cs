@@ -164,9 +164,11 @@ public class Cat : MonoBehaviour
 
     private void OpenCostumization()
     {
-        Time.timeScale = 0f;
+        
         if (CustomizationMenu.Instance != null)
             CustomizationMenu.Instance.Open(this);
+
+        Time.timeScale = 0f;
     }
 
     private void ChangeToParent()
