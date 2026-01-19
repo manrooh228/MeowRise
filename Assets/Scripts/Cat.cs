@@ -1,3 +1,4 @@
+using TMPro;
 using Assets.Scripts.BattleSystem;
 using Assets.Scripts.InventorySystem.Items;
 using NUnit.Framework.Internal.Commands;
@@ -22,6 +23,7 @@ public class Cat : MonoBehaviour
     [SerializeField] public GameObject inBattleIdenticator;
     [SerializeField] public GameObject k1Button;
     [SerializeField] public GameObject k2Button;
+    [SerializeField] public TMP_Text nameText;
 
     [Header("Items")]
     [SerializeField] public Hat equippedHat;
@@ -42,11 +44,13 @@ public class Cat : MonoBehaviour
         this.health = hp;
         this.damageMultiplier = dmg;
         this.isParent = isParent;
+        nameText.text = this.name;
     }
     public void ChangeName(string newName)
     {
         catName = newName;
         gameObject.name = newName;
+        nameText.text = newName;
     }
     
     //Бонусы от оружии, короче
