@@ -86,6 +86,7 @@ public class CustomizationMenu : MonoBehaviour
     public void Close()
     {
         menuPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     

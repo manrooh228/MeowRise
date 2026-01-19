@@ -6,6 +6,8 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts;
+using System.Runtime.Serialization;
 
 public class Cat : MonoBehaviour
 {
@@ -20,12 +22,14 @@ public class Cat : MonoBehaviour
     //[SerializeField] public Transform spawnPoint;
     [SerializeField] public GameObject kittenFighter;
 
+
     [Header("Identicators")]
     [SerializeField] public GameObject inBattleIdenticator;
     [SerializeField] public GameObject k1Button;
     [SerializeField] public GameObject k2Button;
     [SerializeField] public TMP_Text nameText;
     [SerializeField] public HealthBar healthBar;
+    [SerializeField] public BreedingHandler bh;
 
     [Header("Items")]
     [SerializeField] public Hat equippedHat;
@@ -57,9 +61,11 @@ public class Cat : MonoBehaviour
     }
     public void ChangeName(string newName)
     {
-        catName = newName;
-        gameObject.name = newName;
-        nameText.text = newName;
+        if (nameText != null)
+        {
+            catName = newName;
+            nameText.text = newName;
+        }
     }
     
     //Бонусы от оружии, короче
@@ -92,6 +98,16 @@ public class Cat : MonoBehaviour
         else
         {
             ChangeToParent();
+        }
+    }
+
+    public void OnKittenClicked()
+    {
+        // Ищем BreedingHandler на сцене
+        BreedingHandler handler = FindFirstObjectByType<BreedingHandler>();
+        if (handler != null)
+        {
+            handler.SelectNewParent(this);
         }
     }
 
@@ -148,12 +164,24 @@ public class Cat : MonoBehaviour
 
     private void OpenCostumization()
     {
+        Time.timeScale = 0f;
         if (CustomizationMenu.Instance != null)
             CustomizationMenu.Instance.Open(this);
     }
 
     private void ChangeToParent()
     {
-        Debug.Log("Changing to Parent");
+        if (bh != null) // Проверка предотвращает ошибку на строке 174
+        {
+            bh.StartReplaceParent(isMale);
+        }
+        else
+        {
+            // Автоматический поиск, если ссылка не задана в инспекторе
+            bh = FindFirstObjectByType<BreedingHandler>();
+            if (bh != null) bh.StartReplaceParent(isMale);
+        }
     }
+
+
 }
