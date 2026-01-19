@@ -11,10 +11,10 @@ namespace Assets.Scripts
         [SerializeField] private Cat mother; // Перетащите объект MamaPocket сюда
         [SerializeField] private GameObject catPrefab; // Префаб котенка (квадратик)
         
-        [SerializeField] private int kittenCount = 0;
-        [SerializeField] private List<Cat> kittens;
+        //[SerializeField] private int kittenCount = 0;
+        //[SerializeField] private List<Cat> kittens;
         public Transform[] kittenPockets;
-        private int currentPocketIndex = 0;
+        //private int currentPocketIndex = 0;
 
         void Start()
         {
@@ -28,31 +28,30 @@ namespace Assets.Scripts
         {
             while (true)
             {
-                if(kittenCount <= 6)
+                // Проверяем, есть ли хотя бы одно свободное место
+                if (GetFirstFreePocket() != null)
                 {
                     yield return new WaitForSeconds(5f);
                     SpawnKitten();
+                }
+                else
+                {
+                    // Если мест нет, просто ждем секунду и проверяем снова
+                    yield return new WaitForSeconds(1f);
                 }
             }
         }
 
         void SpawnKitten()
         {
-            if (currentPocketIndex >= kittenPockets.Length)
-            {
-                //Debug.Log("Все карманы заняты!");
-                return;
-            }
+            Transform targetPocket = GetFirstFreePocket();
 
-            Transform targetPocket = kittenPockets[currentPocketIndex];
+            if (targetPocket == null) return;
 
             GameObject newKittenObj = Instantiate(catPrefab, targetPocket);
-
-            newKittenObj.transform.localPosition = new Vector2(0, 0);
+            newKittenObj.transform.localPosition = Vector2.zero;
 
             Cat kitten = newKittenObj.GetComponent<Cat>();
-
-            currentPocketIndex++;
 
 
             //Логика наследования 70/30
@@ -73,8 +72,19 @@ namespace Assets.Scripts
 
             //Debug.Log($"Родился котенок! HP: {kittenHealth:F1}, DMG: {kittenDamage:F2}, IsMale: {GenderHandler()}");
 
-            kittens.Add(kitten);
-            kittenCount++;
+            //kittens.Add(kitten);
+            //kittenCount++;
+        }
+        private Transform GetFirstFreePocket()
+        {
+            foreach (Transform pocket in kittenPockets)
+            {
+                if (pocket.childCount == 0)
+                {
+                    return pocket;
+                }
+            }
+            return null;
         }
 
         private bool GenderHandler()
