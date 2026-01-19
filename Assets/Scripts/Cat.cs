@@ -36,6 +36,7 @@ public class Cat : MonoBehaviour
         battleMap = GameObject.Find("SpawnPointKittens").GetComponent<Transform>();
         if(!isParent)
             inBattleIdenticator.SetActive(false);
+        
     }
 
     // Инициализация характеристик
@@ -44,7 +45,6 @@ public class Cat : MonoBehaviour
         this.health = hp;
         this.damageMultiplier = dmg;
         this.isParent = isParent;
-        nameText.text = this.name;
     }
     public void ChangeName(string newName)
     {

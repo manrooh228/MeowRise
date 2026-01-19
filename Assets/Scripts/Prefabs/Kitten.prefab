@@ -572,8 +572,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -813,6 +813,7 @@ MonoBehaviour:
   inBattleIdenticator: {fileID: 273179629313877666}
   k1Button: {fileID: 4617261099994359522}
   k2Button: {fileID: 8839367971257934135}
+  nameText: {fileID: 2213623839201493308}
   equippedHat: {fileID: 0}
   equippedWeapon: {fileID: 0}
 --- !u!222 &8860706791272682999
