@@ -5,15 +5,18 @@ namespace Assets.Scripts.BattleSystem
 {
     public class BattleUnit : MonoBehaviour
     {
+        public float maxHealth;
         public float health;
         public float damage;
         public float attackSpeed = 1.0f;
         public float moveSpeed = 100f;
         public string enemyTag;
-        
 
+        
+        public HealthBar healthBar;
         protected bool isFighting = false;
         protected BattleUnit targetEnemy;
+
 
         protected virtual void Update()
         {
@@ -28,7 +31,7 @@ namespace Assets.Scripts.BattleSystem
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime * (enemyTag == "Ant" ? 1 : -1));
         }
 
-        protected void OnTriggerEnter2D(Collider2D other)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(enemyTag))
             {
@@ -41,7 +44,7 @@ namespace Assets.Scripts.BattleSystem
             }
         }
 
-        IEnumerator AttackCycle()
+        protected IEnumerator AttackCycle()
         {
             while (targetEnemy != null && targetEnemy.health > 0)
             {
@@ -54,6 +57,12 @@ namespace Assets.Scripts.BattleSystem
         protected virtual void TakeDamage(float amount)
         {
             health -= amount;
+
+            if (healthBar != null)
+            {
+                healthBar.SetHealth(health, maxHealth);
+            }
+
             if (health <= 0) Die();
         }
 

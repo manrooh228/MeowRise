@@ -9,7 +9,8 @@ namespace Assets.Scripts
     {
         [SerializeField] private Cat father; // Перетащите объект PapaPocket сюда
         [SerializeField] private Cat mother; // Перетащите объект MamaPocket сюда
-        [SerializeField] private GameObject catPrefab; // Префаб котенка (квадратик)
+        [SerializeField] private GameObject catPrefab; 
+        // Префаб котенка (квадратик)
         
         //[SerializeField] private int kittenCount = 0;
         //[SerializeField] private List<Cat> kittens;
@@ -18,8 +19,8 @@ namespace Assets.Scripts
 
         void Start()
         {
-            father.Init(100f, 1.5f, true, true);
-            mother.Init(150f, 1.0f, true, false); 
+            father.Init(100f, 1.5f, true, true, null);
+            mother.Init(150f, 1.0f, true, false, null); 
 
             StartCoroutine(BreedingCycle());
         }
@@ -67,8 +68,10 @@ namespace Assets.Scripts
 
             //Убрать .0
             kittenHealth = Mathf.Floor(kittenHealth);
+
+            HealthBar kittenHealthBar = kitten.healthBar; 
             
-            kitten.Init(kittenHealth, kittenDamage, false, GenderHandler());
+            kitten.Init(kittenHealth, kittenDamage, false, GenderHandler(), kittenHealthBar);
 
             kitten.ChangeName(kitten.catName);
 

@@ -13,6 +13,7 @@ public class Cat : MonoBehaviour
     [SerializeField] public string catName = "Новый кот";
     [SerializeField] public bool isParent;
     [SerializeField] public bool isMale;
+    [SerializeField] public float maxHealth;
     [SerializeField] public float health;
     [SerializeField] public float damageMultiplier;
     [SerializeField] public Transform battleMap;
@@ -24,6 +25,7 @@ public class Cat : MonoBehaviour
     [SerializeField] public GameObject k1Button;
     [SerializeField] public GameObject k2Button;
     [SerializeField] public TMP_Text nameText;
+    [SerializeField] public HealthBar healthBar;
 
     [Header("Items")]
     [SerializeField] public Hat equippedHat;
@@ -40,11 +42,18 @@ public class Cat : MonoBehaviour
     }
 
     // Инициализация характеристик
-    public void Init(float hp, float dmg, bool isParent, bool isMale)
+    public void Init(float hp, float dmg, bool isParent, bool isMale, HealthBar healthBar)
     {
+        this.maxHealth = hp;
         this.health = hp;
         this.damageMultiplier = dmg;
         this.isParent = isParent;
+        this.healthBar = healthBar;
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(health, maxHealth);
+        }
     }
     public void ChangeName(string newName)
     {
@@ -57,10 +66,10 @@ public class Cat : MonoBehaviour
     public float GetTotalHealth()
     {
         if(equippedHat == null)
-            return health;
+            return maxHealth;
         
         float bonus = (equippedHat != null) ? equippedHat.healthBonus : 0;
-        return health + bonus;
+        return maxHealth + bonus;
     }
 
     public float GetTotalDamage()
@@ -90,6 +99,11 @@ public class Cat : MonoBehaviour
     {
         this.health = remainingHealth;
 
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(this.health, this.maxHealth);
+        }
+
         k1Button.SetActive(true);
         k2Button.SetActive(true);
         inBattleIdenticator.SetActive(false);
@@ -110,12 +124,17 @@ public class Cat : MonoBehaviour
         if (spawnPoint != null)
         {
             GameObject fighter = Instantiate(kittenFighter, spawnPoint.transform.position, Quaternion.identity, battleMap);
+            this.healthBar.healthText.text = "";
+            this.nameText.text = "";
 
             KittenFighter unit = fighter.GetComponent<KittenFighter>();
             unit.sourcePocket = this;
+            unit.maxHealth = GetTotalHealth();
             unit.health = GetTotalHealth();
             unit.damage = GetTotalDamage();
             unit.enemyTag = "Ant";
+            unit.healthBar = unit.GetComponentInChildren<HealthBar>();
+            unit.healthBar.SetHealth(health, maxHealth);
 
             k1Button.SetActive(false);
             k2Button.SetActive(false);

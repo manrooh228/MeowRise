@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Kitten
   - Ant
+  - Farm
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI_World
+    uniqueID: 3239246757
     locked: 0
   m_RenderingLayers:
   - Default

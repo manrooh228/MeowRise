@@ -51,7 +51,7 @@ public class CustomizationMenu : MonoBehaviour
             genderText.text = "Gender: Female";
 
         damageText.text = $"Damage: {selectedCat.damageMultiplier:F2} (+{dmgBonus})"; //покачто мултипликатор урона потом на обычный помен€ю
-        healthText.text = $"Health: {selectedCat.health} (+{hpBonus})";
+        healthText.text = $"Health: {selectedCat.maxHealth} (+{hpBonus})";
         //genderText.text = $"Gender: "
 
     }
