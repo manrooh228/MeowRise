@@ -12,7 +12,7 @@ namespace Assets.Scripts.BattleSystem
         public float moveSpeed = 100f;
         public string enemyTag;
         public Animator anim;
-        
+        public string nameUnit;
         public HealthBar healthBar;
         protected bool isFighting = false;
         protected BattleUnit targetEnemy;

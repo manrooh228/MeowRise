@@ -59,6 +59,11 @@ public class Cat : MonoBehaviour
             healthBar.SetHealth(health, maxHealth);
         }
     }
+
+    public void Update()
+    {
+        
+    }
     public void ChangeName(string newName)
     {
         if (nameText != null)
@@ -111,13 +116,18 @@ public class Cat : MonoBehaviour
         }
     }
 
-    public void ReturnFromBattle(float remainingHealth)
+    public void ReturnFromBattle(KittenFighter kt)
     {
-        this.health = remainingHealth;
+        this.health = kt.health;
 
-        if (healthBar != null)
+        if (this.healthBar != null)
         {
-            healthBar.SetHealth(this.health, this.maxHealth);
+            this.healthBar.SetHealth(this.health, this.maxHealth);
+        }
+
+        if (this.nameText != null)
+        {
+            this.nameText.text = this.catName;
         }
 
         k1Button.SetActive(true);

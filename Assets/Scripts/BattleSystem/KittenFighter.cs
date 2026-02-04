@@ -7,6 +7,7 @@ namespace Assets.Scripts.BattleSystem
     {
         public RectTransform tr;
         public Cat sourcePocket;
+        
 
         private Coroutine returnTimerCoroutine;
         private bool isWaitingToReturn = false;
@@ -79,7 +80,7 @@ namespace Assets.Scripts.BattleSystem
         {
             if (sourcePocket != null)
             {
-                sourcePocket.ReturnFromBattle(health);
+                sourcePocket.ReturnFromBattle(this);
             }
             Destroy(gameObject);
         }
