@@ -142,11 +142,12 @@ public class Cat : MonoBehaviour
             GameObject fighter = Instantiate(kittenFighter, spawnPoint.transform.position, Quaternion.identity, battleMap);
             this.healthBar.healthText.text = "";
             this.nameText.text = "";
+            
 
             KittenFighter unit = fighter.GetComponent<KittenFighter>();
             unit.sourcePocket = this;
             unit.maxHealth = GetTotalHealth();
-            unit.health = GetTotalHealth();
+            unit.health = this.health;
             unit.damage = GetTotalDamage();
             unit.enemyTag = "Ant";
             unit.healthBar = unit.GetComponentInChildren<HealthBar>();
